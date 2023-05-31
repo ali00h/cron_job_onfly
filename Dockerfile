@@ -15,7 +15,3 @@ RUN (crontab -l ; echo "* * * * * echo "Hello world" >> /var/log/cron.log") | cr
 
 # Run the command on container startup
 CMD cron && tail -f /var/log/cron.log
-
-
-
-FROM ubuntu:22.04
