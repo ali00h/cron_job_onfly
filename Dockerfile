@@ -6,3 +6,4 @@ RUN apt-get update -y \
        cron \
        php8.1-fpm
 
+CMD cron
