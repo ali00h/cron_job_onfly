@@ -1,10 +1,7 @@
 FROM ubuntu:22.04
 
-ARG DEBIAN_FRONTEND=noninteractive
-RUN apt-get update -y \
-  && apt-get install -y --no-install-recommends \
-       cron \
-       php8.1-fpm
+# Install cron
+RUN apt-get -y install cron
 
 # Create the log file to be able to run tail
 RUN touch /var/log/cron.log
