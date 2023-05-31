@@ -1,10 +1,14 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 $obj = new RunJob;
 $obj->run();
 
 class RunJob{
     private $env = array();
-	private $logDir = "log/";
+	private $logDir = "/var/www/html/log/";
 	private $c_minute = 0;
 	private $c_hour = 0;
 	private $c_dayOfMonth = 0;
@@ -12,7 +16,9 @@ class RunJob{
 	private $c_dayOfWeek = 0;
 
 	public function run(){
+		
 		$this->fillENV();
+
         ini_set('date.timezone', $this->env["TIME_ZONE"]);
         set_time_limit(0);		
         if(sizeof($this->env["CRON_URL_LIST"]) == 0){
@@ -24,15 +30,14 @@ class RunJob{
 		$this->c_dayOfMonth     = (int)date('d');
 		$this->c_month          = (int)date('m');
 		$this->c_dayOfWeek      = (int)date('w');
-		
+		/*
 		$this->p($this->c_minute);
 		$this->p($this->c_hour);
 		$this->p($this->c_dayOfMonth);
 		$this->p($this->c_month);
 		$this->p($this->c_dayOfWeek);
+		*/
 
-		$this->makeDir($this->logDir);
-		
         foreach($this->env["CRON_URL_LIST"] as $jobItem){
 			$this->p('JobItem: ' . trim($jobItem));
     		$this->run_job(trim($jobItem));
@@ -71,10 +76,9 @@ class RunJob{
 				
 			if($cond[0] && $cond[1] && $cond[2] && $cond[3] && $cond[4]){				
 				if (str_starts_with($job_arr[5], 'http')) {
-					$this->p('Run... ' . $job);
-					$jobContent = file_get_contents($job_arr[5]);
+					$this->p('Calling... ' . $job_arr[5]);
+					$jobContent = $this->callURL($job_arr[5]);
 					$this->p('Job URL Response:<pre>' . $jobContent . '</pre>');
-					$this->addLog($job,$jobContent);
 				}				
 			}
 		
@@ -84,9 +88,9 @@ class RunJob{
 
     private function fillENV(){
         $this->env = $_SERVER;
-        if (file_exists('.env')) {
-            $this->env = array_merge(parse_ini_file('.env'), $this->env);
-        }
+        if (file_exists('/var/www/html/.env')) {
+            $this->env = array_merge(parse_ini_file('/var/www/html/.env'), $this->env);
+        }		
 
 		if(isset($this->env["CRON_URL_LIST"]))
         	$this->env["CRON_URL_LIST"] = explode(",",$this->env["CRON_URL_LIST"]);
@@ -94,25 +98,43 @@ class RunJob{
 			$this->env["CRON_URL_LIST"] = array();
 		$this->env["CRON_URL_LIST"] = array_filter($this->env["CRON_URL_LIST"], fn($value) => !is_null($value) && $value !== '');		
 
-		if(isset($this->env['MACHINE_TYPE']) && $this->env['MACHINE_TYPE'] == 'docker'){
-			$this->logDir = "/var/www/html/log/";
-		}
 
     }
 
 	private function p($msg){
-		echo '<b>' . date('d-m-Y H:i:s') . '</b> ' . $msg . '<br />';
+		echo '
+' . date('d-m-Y H:i:s') . ': ' . $msg . '
+';
 	}
 
     private function makeDir($path){
         return is_dir($path) || mkdir($path);
     }	
 
-	private function addLog($job,$content){
-		$myfile = fopen($this->logDir . "cron_last_log.inc", "w") or die("Unable to open file!");
-		$txt = "<?php /*\n" . date('d-m-Y H:i:s') . "\n---------------------------\n" . $job . "\n---------------------------\n" . $content . "\n*/?>";
-		fwrite($myfile, $txt);
-		fclose($myfile);
+
+
+	private function callURL($url)
+	{
+		$curl = curl_init();
+
+		curl_setopt_array($curl, array(
+		  CURLOPT_URL => $url,
+		  CURLOPT_RETURNTRANSFER => true,
+		  CURLOPT_SSL_VERIFYPEER => false,
+		  CURLOPT_ENCODING => '',
+		  CURLOPT_MAXREDIRS => 10,
+		  CURLOPT_TIMEOUT => 0,
+		  CURLOPT_FOLLOWLOCATION => true,
+		  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+		  CURLOPT_CUSTOMREQUEST => 'GET',
+		));
+		
+		$response = curl_exec($curl);
+		if($response === false){
+			$this->p('Calling Error: ' . curl_error($curl));
+		}
+		curl_close($curl);
+		return $response;
 	}
 
 

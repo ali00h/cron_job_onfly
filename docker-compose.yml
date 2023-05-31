@@ -7,4 +7,4 @@ services:
     restart: always
     environment:
       - TIME_ZONE=Asia/Tehran
-      - CRON_URL_LIST=* * * * * https://example-files.online-convert.com/document/txt/example.txt
+      - CRON_URL_LIST=* * * * * https://example-files.online-convert.com/document/txt/example.txt,* * * * * https://alihashemi.ir/pp/counter.php
