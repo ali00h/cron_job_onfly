@@ -1,0 +1,17 @@
+version: "3"
+services:
+  php:
+    build: .
+    image: "ali00h/cronjob_without_volume"
+    container_name: cronjob-without-volume
+    restart: always
+    ports:
+      - "8040:8080"
+    environment:
+      - CRON_URL_LIST=* * * * * https://example-files.online-convert.com/document/txt/example.txt
+    networks:
+      - pmbnetwork
+
+networks:
+  pmbnetwork:
+    driver: bridge
