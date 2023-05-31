@@ -1,6 +1,6 @@
 version: "3"
 services:
-  php:
+  cronjob:
     build: .
     image: "ali00h/cronjob_without_volume"
     container_name: cronjob-without-volume
