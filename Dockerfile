@@ -13,4 +13,4 @@ RUN apt-get update -y \
 RUN (crontab -l ; echo "* * * * * php /var/www/html/runJob.php > /dev/null 2>&1") | crontab
 
 # Run the command on container startup
-CMD cron
+#CMD cron
