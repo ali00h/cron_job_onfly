@@ -7,7 +7,7 @@ RUN apt-get update -y \
        cron \
        php8.1-fpm
 
-COPY /var/www/html/ /var/www/html/       
+COPY ./public/ /var/www/html/    
 
 
 # Setup cron job
