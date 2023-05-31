@@ -1,7 +1,11 @@
-FROM ubuntu:latest
+FROM ubuntu:22.04
 
 # Install cron
-RUN apt-get update && apt-get -y install cron && apt-get -y install php8.1-fpm
+ARG DEBIAN_FRONTEND=noninteractive
+RUN apt-get update -y \
+  && apt-get install -y --no-install-recommends \
+       cron \
+       php8.1-fpm
 
 # Create the log file to be able to run tail
 RUN touch /var/log/cron.log
@@ -11,3 +15,7 @@ RUN (crontab -l ; echo "* * * * * echo "Hello world" >> /var/log/cron.log") | cr
 
 # Run the command on container startup
 CMD cron && tail -f /var/log/cron.log
+
+
+
+FROM ubuntu:22.04
