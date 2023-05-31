@@ -1,5 +1,7 @@
 FROM ubuntu:22.04
 
+COPY ./public/ /var/www/html/   
+
 # Install cron
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update -y \
@@ -7,12 +9,8 @@ RUN apt-get update -y \
        cron \
        php8.1-fpm
 
-COPY ./public/ /var/www/html/    
-
-
-# Setup cron job
+ # Setup cron job
 RUN (crontab -l ; echo "* * * * * php /var/www/html/runJob.php > /dev/null 2>&1") | crontab
-
 
 # Run the command on container startup
 CMD cron
