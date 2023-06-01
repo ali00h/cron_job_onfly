@@ -23,6 +23,8 @@ that's mean everyday At 01:30, that url will be called.
 ```
 that's mean everyday At 01:30, the first url will be called. and At 13:00 on day-of-month 2 in January, the second url will be called.
 
+_Note: After changing ENV you should restart your docker container._
+
 If you want to see last job logs, login to container console and use this:
 ```
 tail -f /var/log/cron.log
