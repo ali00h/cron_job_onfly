@@ -10,7 +10,7 @@ CRON_URL_LIST=0 1 * * * https://example-files.online-convert.com/document/txt/ex
 | ENV | Description |
 | --- | --- |
 | `TIME_ZONE` | Your time zone for creating backup file name. |
-| `CRON_URL_LIST` | **(Optional)** If this variable is not empty, you can define **cronjob** for fetching a url. You can define multiple **cronjob** by `,` |
+| `CRON_URL_LIST` | You can define **cronjob** for fetching one or more urls. You can define multiple **cronjob** by `,` |
 
 ## Usage
 If you want to schedule one or more URL calls, you can define them in `CRON_URL_LIST` variable in Environment Variables. For example:
@@ -18,6 +18,10 @@ If you want to schedule one or more URL calls, you can define them in `CRON_URL_
 30 1 * * * https://example-files.online-convert.com/document/txt/example.txt
 ```
 that's mean everyday At 01:30, that url will be called. 
+```
+30 1 * * * https://example-files.online-convert.com/document/txt/example.txt,0 13 2 1 * https://www.w3.org/TR/2003/REC-PNG-20031110/iso_8859-1.txt
+```
+that's mean everyday At 01:30, the first url will be called. and At 13:00 on day-of-month 2 in January, the second url will be called.
 
 If you want to see last job logs, login to container console and use this:
 ```
