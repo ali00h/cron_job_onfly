@@ -6,5 +6,5 @@ services:
     container_name: cronjob-without-volume
     restart: always
     environment:
-      - TIME_ZONE=Asia/Tehran
+      - CRON_TIME_ZONE=Asia/Tehran
       - CRON_URL_LIST=* * * * * https://example-files.online-convert.com/document/txt/example.txt,* * * * * https://alihashemi.ir/pp/counter.php

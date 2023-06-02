@@ -4,12 +4,12 @@ that you can schedule one or more urls calling without mounting any volumes and 
 
 ## Environment Variables
 ```
-TIME_ZONE=UTC
+CRON_TIME_ZONE=UTC
 CRON_URL_LIST=0 1 * * * https://example-files.online-convert.com/document/txt/example.txt
 ```
 | ENV | Description |
 | --- | --- |
-| `TIME_ZONE` | Your time zone for creating backup file name. |
+| `CRON_TIME_ZONE` | Your time zone for creating backup file name. |
 | `CRON_URL_LIST` | You can define **cronjob** for fetching one or more urls. You can define multiple **cronjob** by `,` |
 
 ## Usage
@@ -34,7 +34,7 @@ tail -f /var/log/cron.log
 Just run:
 ```
 docker run -d \
-  --env TIME_ZONE="UTC" \
+  --env CRON_TIME_ZONE="UTC" \
   --env CRON_URL_LIST="0 1 * * * https://example-files.online-convert.com/document/txt/example.txt" \
   ali00h/cronjob_without_volume:latest
 ```
@@ -49,7 +49,7 @@ services:
     container_name: cronjob-without-volume
     restart: always
     environment:
-      - TIME_ZONE=UTC
+      - CRON_TIME_ZONE=UTC
       - CRON_URL_LIST=* * * * * https://example-files.online-convert.com/document/txt/example.txt
 ```
 and run:

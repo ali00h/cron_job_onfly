@@ -19,7 +19,7 @@ class RunJob{
 		
 		$this->fillENV();
 
-        ini_set('date.timezone', $this->env["TIME_ZONE"]);
+        ini_set('date.timezone', $this->env["CRON_TIME_ZONE"]);
         set_time_limit(0);		
         if(sizeof($this->env["CRON_URL_LIST"]) == 0){
             $this->p('Cron job is empty!');
