@@ -89,7 +89,7 @@ class RunJob{
     private function fillENV(){
         $this->env = $_SERVER;
         if (file_exists('/var/www/html/.env')) {
-            $this->env = array_merge(parse_ini_file('/var/www/html/.env'), $this->env);
+            $this->env = array_merge(parse_ini_file('/var/www/html/.env', true, INI_SCANNER_RAW), $this->env);
         }		
 
 		if(isset($this->env["CRON_URL_LIST"]))
