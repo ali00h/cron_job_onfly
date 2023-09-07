@@ -56,3 +56,8 @@ and run:
 ```
 docker-compose up -d
 ```
+
+check cron job:
+```
+crontab -l
+```
