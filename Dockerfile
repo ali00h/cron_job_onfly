@@ -1,23 +1,11 @@
-FROM ubuntu:22.04
+FROM richarvey/nginx-php-fpm:3.1.6
+
+LABEL maintainer="Ali00h"
+ENV RUN_SCRIPTS=1
 
 
-# Install cron
-ARG DEBIAN_FRONTEND=noninteractive
-RUN apt-get update -y \
-  && apt-get install -y --no-install-recommends \
-       cron \
-       php8.1-fpm \
-       php8.1-curl
+# Change startup script
+COPY config/custom_script.sh /var/www/html/scripts/custom_script.sh
+RUN chmod +x /var/www/html/scripts/custom_script.sh
+# End change startup script
 
-COPY ./public/ /var/www/html/   
-COPY config/entry.sh /home/entry.sh
-RUN chmod +x /home/entry.sh
-
-
-RUN touch /var/log/cron.log
-
-# Setup cron job
-RUN (crontab -l ; echo "* * * * * php /var/www/html/runJob.php > /var/log/cron.log") | crontab
-
-# Run the command on container startup
-CMD ["/bin/bash","/home/entry.sh"]
