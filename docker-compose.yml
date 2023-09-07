@@ -7,3 +7,5 @@ services:
     restart: always
     environment:
       - CRON_LIST=* * * * * echo "cron test for each minutes",* * * * * wget "https://alihashemi.ir/pp/counter.php?p=1"
+    volumes:
+      - /c/Ali/Temp/cronlog/:/var/log/cronlog/      

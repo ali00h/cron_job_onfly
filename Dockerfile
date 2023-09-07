@@ -9,5 +9,9 @@ RUN chmod 755 /var/log/cronlog
 # Change startup script
 COPY config/custom_script.sh /var/www/html/scripts/custom_script.sh
 RUN chmod +x /var/www/html/scripts/custom_script.sh
-# End change startup script
+# End
 
+# Create timestamp.sh for add time to log
+COPY config/timestamp.sh /var/www/html/timestamp.sh
+RUN chmod +x /var/www/html/timestamp.sh
+# End
