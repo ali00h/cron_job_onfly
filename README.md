@@ -4,7 +4,7 @@ that you can schedule one or more cronjob without mounting any volumes and only 
 
 ## Environment Variables
 ```
-CRON_TIME_ZONE=UTC
+TZ=UTC
 CRON_LIST=0 1 * * * wget "https://example-files.online-convert.com/document/txt/example.txt"
 ```
 | ENV | Description |
