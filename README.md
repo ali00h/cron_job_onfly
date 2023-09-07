@@ -61,7 +61,7 @@ check cron job:
 ```
 crontab -l
 ```
-## Docker Compose For Perminent Logs
+## Docker Compose For Permanent Logs
 If you want to keep logs after container restart, you can use volume for log directory. for example `docker-compose.yml` would be:
 ```
 version: "3"
