@@ -11,6 +11,9 @@ CRON_LIST=0 1 * * * wget "https://example-files.online-convert.com/document/txt/
 | --- | --- |
 | `TZ` | Your time zone |
 | `CRON_LIST` | You can define **cronjob** for one or more jobs. You can define multiple **cronjob** by `,` |
+| `LOGIN_PAGE_PARAM` | Login page parametter for security |
+| `LOGIN_USERNAME` | Login username |
+| `LOGIN_PASSWORD` | Login password |
 
 ## Usage
 If you want to schedule one or more jobs, you can define them in `CRON_LIST` variable in Environment Variables. For example:
