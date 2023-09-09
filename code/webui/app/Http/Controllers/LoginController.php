@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
+
 
 class LoginController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         return view('login',['error' => false]);
     }
@@ -31,13 +31,18 @@ class LoginController extends Controller
         }        
 
         if($request->input('username') == 'ali' && $request->input('password') == 'test'){
-            $user = new User;
-            $user->name = 'admin';
-            Auth::login($user);
-            
+
+            $request->session()->put('authenticated', time());
+            return redirect()->route('dashboard.index');
         }else{
             return view('login',['error'=>'Username and password are wrong!']);
         }
 
+    }
+
+    public function signout(Request $request){
+        $request->session()->forget('authenticated'); 
+        $request->session()->flush();
+        return redirect()->route('login.index');
     }
 }
