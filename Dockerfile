@@ -9,8 +9,12 @@ RUN chmod 755 /var/log/cronlog
 # End
 
 # Copy laravel for reports
-RUN mkdir /var/www/html/cron-logs
-COPY public/cron-logs/ /var/www/html/cron-logs/
+RUN mkdir /var/www/html/webui
+COPY code/webui/ /var/www/html/webui/
+WORKDIR /var/www/html/webui/
+RUN composer install
+# RUN npm install bulma
+# RUN npm run dev
 # End
 
 # Copy Nginx Config

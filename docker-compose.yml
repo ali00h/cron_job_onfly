@@ -12,4 +12,4 @@ services:
       - CRON_LIST=* * * * * echo "cron test for each minutes",* * * * * wget "https://alihashemi.ir/pp/counter.php?p=1"
     volumes:
       - /c/Ali/Temp/cronlog/:/var/log/cronlog/      
-      - ./public/cron-logs/:/var/www/html/cron-logs/
+      - ./code/webui/:/var/www/html/webui/
