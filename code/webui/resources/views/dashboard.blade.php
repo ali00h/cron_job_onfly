@@ -26,46 +26,17 @@ Dashbord
         </tr>
     </tfoot>
     <tbody>
-        <tr>
-            <td>1</td>
-            <td>* * * * * wget https://en.wikipedia.org/wiki/Leicester.php?p=123</td>
-            <td>2023-05-21 12:52</td>
-            <td>
-                <a href="https://en.wikipedia.org/wiki/Leicester_City_F.C." title="Leicester City F.C.">Detail</a>
-            </td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>* * * * * wget https://en.wikipedia.org/wiki/Leicester.php?p=123</td>
-            <td>2023-05-21 12:52</td>
-            <td>
-                <a href="https://en.wikipedia.org/wiki/Leicester_City_F.C." title="Leicester City F.C.">Detail</a>
-            </td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>* * * * * wget https://en.wikipedia.org/wiki/Leicester.php?p=123</td>
-            <td>2023-05-21 12:52</td>
-            <td>
-                <a href="https://en.wikipedia.org/wiki/Leicester_City_F.C." title="Leicester City F.C.">Detail</a>
-            </td>
-        </tr>
-        <tr>
-            <td>4</td>
-            <td>* * * * * wget https://en.wikipedia.org/wiki/Leicester.php?p=123</td>
-            <td>2023-05-21 12:52</td>
-            <td>
-                <a href="https://en.wikipedia.org/wiki/Leicester_City_F.C." title="Leicester City F.C.">Detail</a>
-            </td>
-        </tr>
-        <tr>
-            <td>5</td>
-            <td>* * * * * wget https://en.wikipedia.org/wiki/Leicester.php?p=123</td>
-            <td>2023-05-21 12:52</td>
-            <td>
-                <a href="https://en.wikipedia.org/wiki/Leicester_City_F.C." title="Leicester City F.C.">Detail</a>
-            </td>
-        </tr>                        
+        @foreach($loglist as $item)
+            <tr>
+                <td>1</td>
+                <td>{{ $item['job'] }}</td>
+                <td>{{ $item['last_change'] }}</td>
+                <td>
+                    <a href="https://en.wikipedia.org/wiki/?p={{ $item['id'] }}" title="Leicester City F.C.">Detail</a>
+                </td>
+            </tr>            
+        @endforeach        
+              
 
     </tbody>
     </table>

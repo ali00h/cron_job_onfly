@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Services\LogHandler;
 
 class DashboardController extends Controller
 {
@@ -13,6 +14,11 @@ class DashboardController extends Controller
 
     public function index(Request $request)
     {
-        return view('dashboard',['error' => false]);
+        $logH = new LogHandler();
+        $cronList = $logH->getCronListFromLog();
+
+        //print_r($cronList);exit();
+
+        return view('dashboard',['loglist' => $cronList]);
     }    
 }
