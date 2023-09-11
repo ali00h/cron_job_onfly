@@ -27,3 +27,5 @@ Route::post('login', [LoginController::class, 'auth'])->name('login.auth');
 Route::get('login', [LoginController::class, 'index'])->name('login.index');
 Route::get('signout', [LoginController::class, 'signout'])->name('login.signout');
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+Route::get('log-detail/{id}', [DashboardController::class, 'detail'])->name('log.detail');
+

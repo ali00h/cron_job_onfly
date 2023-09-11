@@ -17,8 +17,16 @@ class DashboardController extends Controller
         $logH = new LogHandler();
         $cronList = $logH->getCronListFromLog();
 
-        //print_r($cronList);exit();
 
         return view('dashboard',['loglist' => $cronList]);
     }    
+
+    public function detail(Request $request,$id)
+    {
+        $logH = new LogHandler();
+        $detail = $logH->getLogDetail($id);
+
+
+        return view('log-detail',['title' => $detail['title'],'loglist' => $detail['list']]);
+    }      
 }

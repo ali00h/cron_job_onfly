@@ -26,13 +26,13 @@ Dashbord
         </tr>
     </tfoot>
     <tbody>
-        @foreach($loglist as $item)
+        @foreach($loglist as $index => $item)
             <tr>
-                <td>1</td>
+                <td>{{ $index+1 }}</td>
                 <td>{{ $item['job'] }}</td>
                 <td>{{ $item['last_change'] }}</td>
                 <td>
-                    <a href="https://en.wikipedia.org/wiki/?p={{ $item['id'] }}" title="Leicester City F.C.">Detail</a>
+                    <a href="{{ route('log.detail', ['id' => $item['id']]) }}" title="Detail">Detail</a>
                 </td>
             </tr>            
         @endforeach        
