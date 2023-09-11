@@ -11,9 +11,11 @@
     <div class="container">
 
     <div class="columns is-mobile">
-        <div class="column is-half is-offset-one-quarter">
+        <div class="column is-half-desktop is-offset-one-quarter-desktop">
             <form class="box" action="{{ route('login.auth') }}" method="post" enctype="multipart/form-data">
                 @csrf
+
+                <h1 class="title">Login</h1>
                 @if($error)
                     <div class="notification is-danger is-light">
                     {{ $error }}

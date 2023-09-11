@@ -18,9 +18,7 @@ use App\Http\Controllers\DashboardController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('login2', function () {
-    return view('welcome');
-});
+
 
 
 Route::post('login', [LoginController::class, 'auth'])->name('login.auth');
