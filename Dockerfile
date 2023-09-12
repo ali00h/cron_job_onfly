@@ -13,8 +13,8 @@ RUN mkdir /var/www/html/webui
 COPY code/webui/ /var/www/html/webui/
 WORKDIR /var/www/html/webui/
 RUN composer install
-# RUN npm install bulma
-# RUN npm run dev
+RUN npm install
+RUN npm run dev
 # End
 
 # Copy Nginx Config
