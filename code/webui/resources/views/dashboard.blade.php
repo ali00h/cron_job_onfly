@@ -33,7 +33,7 @@ Dashbord
                         <td>{{ $item['job'] }}</td>
                         <td>{{ $item['last_change'] }}</td>
                         <td>
-                            <a href="{{ route('log.detail', ['id' => $item['id']]) }}" title="Detail">Detail</a>
+                            <a href="{{ route('log.detail', ['id' => $item['id'],'pagenumber' => 1]) }}" title="Detail">Detail</a>
                         </td>
                     </tr>            
                 @endforeach        

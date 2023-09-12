@@ -49,10 +49,12 @@ class LogHandler
         $title = $exp1[0];
         $content2 = $exp1[1];
         $exp2 = explode("---newlogdate:---", $content2);
+        
         foreach($exp2 as $xitem){
             $exp3 = explode("---newlog:---", $xitem);
             if(sizeof($exp3) > 1){
                 $list[] = array(
+                    'index'       => 0,
                     'set_date'    => $exp3[0],
                     'content'     => trim($exp3[1])
                 );
@@ -60,6 +62,11 @@ class LogHandler
         }
 
         $list = array_reverse($list);
+
+        $index = 1;
+        foreach($list as &$item){
+            $item['index'] = $index++;
+        }
 
         $ret = array();
         $ret['title'] = $title;
