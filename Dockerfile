@@ -1,23 +1,33 @@
-FROM ubuntu:22.04
+FROM richarvey/nginx-php-fpm:3.1.6
 
+LABEL maintainer="Ali00h"
+ENV RUN_SCRIPTS=1
 
-# Install cron
-ARG DEBIAN_FRONTEND=noninteractive
-RUN apt-get update -y \
-  && apt-get install -y --no-install-recommends \
-       cron \
-       php8.1-fpm \
-       php8.1-curl
+# Create Log Directory
+RUN mkdir /var/log/cronlog
+RUN chmod 755 /var/log/cronlog
+# End
 
-COPY ./public/ /var/www/html/   
-COPY config/entry.sh /home/entry.sh
-RUN chmod +x /home/entry.sh
+# Copy laravel for reports
+RUN mkdir /var/www/html/webui
+COPY code/webui/ /var/www/html/webui/
+WORKDIR /var/www/html/webui/
+RUN composer install
+# RUN npm install bulma
+# RUN npm run dev
+# End
 
+# Copy Nginx Config
+COPY config/nginx.conf /etc/nginx/sites-enabled/default.conf
+# End
 
-RUN touch /var/log/cron.log
+# Change startup script
+COPY config/custom_script.sh /var/www/html/scripts/custom_script.sh
+RUN chmod +x /var/www/html/scripts/custom_script.sh
+# End
 
-# Setup cron job
-RUN (crontab -l ; echo "* * * * * php /var/www/html/runJob.php > /var/log/cron.log") | crontab
+# Create timestamp.sh for add time to log
+COPY config/timestamp.sh /var/www/html/timestamp.sh
+RUN chmod +x /var/www/html/timestamp.sh
+# End
 
-# Run the command on container startup
-CMD ["/bin/bash","/home/entry.sh"]
