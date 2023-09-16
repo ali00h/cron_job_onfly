@@ -10,6 +10,7 @@ CRON_LIST=0 1 * * * wget "https://example-files.online-convert.com/document/txt/
 | ENV | Description |
 | --- | --- |
 | `TZ` | Your time zone |
+| `LOG_MAX_LINE_COUNT` | Each log file has a maximum of this number of lines. This is to avoid taking up too much disk space. |
 | `CRON_LIST` | You can define **cronjob** for one or more jobs. You can define multiple **cronjob** by `,` |
 | `LOGIN_USERNAME` | Login username |
 | `LOGIN_PASSWORD` | Login password |
@@ -37,7 +38,10 @@ Just run:
 ```
 docker run -d \
   --env TZ="UTC" \
-  --env CRON_LIST="0 1 * * * wget https://example-files.online-convert.com/document/txt/example.txt" \
+  --env LOG_MAX_LINE_COUNT="1000" \
+  --env CRON_LIST="0 1 * * * wget https://example-files.online-convert.com/document/txt/example.txt" \  
+  --env LOGIN_USERNAME="admin" \
+  --env LOGIN_PASSWORD="admin" \    
   ali00h/cronjob_without_volume:latest
 ```
 
@@ -52,7 +56,10 @@ services:
     restart: always
     environment:
       - TZ=UTC
+      - LOG_MAX_LINE_COUNT=1000      
       - CRON_LIST=* * * * * wget https://example-files.online-convert.com/document/txt/example.txt
+      - LOGIN_USERNAME=admin
+      - LOGIN_PASSWORD=admin         
 ```
 and run:
 ```
@@ -74,7 +81,10 @@ services:
     restart: always
     environment:
       - TZ=UTC
+      - LOG_MAX_LINE_COUNT=1000      
       - CRON_LIST=* * * * * wget https://example-files.online-convert.com/document/txt/example.txt
+      - LOGIN_USERNAME=admin
+      - LOGIN_PASSWORD=admin  
     volumes:
       - ./cronlog/:/var/log/cronlog/            
 ```
