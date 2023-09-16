@@ -3,6 +3,10 @@ FROM richarvey/nginx-php-fpm:3.1.6
 LABEL maintainer="Ali00h"
 ENV RUN_SCRIPTS=1
 
+# Install NPM
+RUN apk add --update npm
+# End
+
 # Create Log Directory
 RUN mkdir /var/log/cronlog
 RUN chmod 755 /var/log/cronlog
@@ -31,3 +35,7 @@ COPY config/timestamp.sh /var/www/html/timestamp.sh
 RUN chmod +x /var/www/html/timestamp.sh
 # End
 
+# Create remove_old_log.sh for add time to log
+COPY config/remove_old_log.sh /var/www/html/remove_old_log.sh
+RUN chmod +x /var/www/html/remove_old_log.sh
+# End
