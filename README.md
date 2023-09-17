@@ -41,7 +41,7 @@ The username and password would be set in ENV.
 ## Docker
 Just run:
 ```
-docker run -d \
+docker run -d -p 8099:80 \
   --env TZ="UTC" \
   --env LOG_MAX_LINE_COUNT="1000" \
   --env CRON_LIST="0 1 * * * wget https://example-files.online-convert.com/document/txt/example.txt" \  
@@ -59,6 +59,8 @@ services:
     image: "ali00h/cronjob_without_volume"
     container_name: cronjob-without-volume
     restart: always
+    ports:
+      - "8099:80"    
     environment:
       - TZ=UTC
       - LOG_MAX_LINE_COUNT=1000      
@@ -84,6 +86,8 @@ services:
     image: "ali00h/cronjob_without_volume"
     container_name: cronjob-without-volume
     restart: always
+    ports:
+      - "8099:80"    
     environment:
       - TZ=UTC
       - LOG_MAX_LINE_COUNT=1000      
