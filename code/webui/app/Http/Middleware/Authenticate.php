@@ -8,7 +8,7 @@ use Closure;
 class Authenticate extends Middleware
 {
 
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next, ...$guards)
     {
         if (!empty(session('authenticated'))) {
             $request->session()->put('authenticated', time());

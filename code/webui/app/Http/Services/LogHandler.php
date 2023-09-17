@@ -9,15 +9,15 @@ class LogHandler
     private $logDir = "";
     public function __construct()
     {
-        $this->logDir = "C:/Ali/Temp/cronlog/";
+        $this->logDir = "/var/log/cronlog/";
     }
 
     public function getCronListFromLog()
     {
         $logs = array();
-        $files = scandir($this->logDir);
+        $files = $this->scan_dir($this->logDir);
         foreach($files as $log){
-            if(substr($log, 0, 1) != "."){
+            if(substr($log, 0, 1) != "." && substr($log, -4) == ".log"){
                 $filePath = $this->logDir . $log;
                 $id = str_replace(".log","",$log);
                 $logs[] = array(
@@ -30,6 +30,21 @@ class LogHandler
         }
         return $logs;
     }    
+
+    private function scan_dir($dir) {
+        $ignored = array('.', '..', '.svn', '.htaccess');
+    
+        $files = array();    
+        foreach (scandir($dir) as $file) {
+            if (in_array($file, $ignored)) continue;
+            $files[$file] = filemtime($dir . '/' . $file);
+        }
+    
+        arsort($files);
+        $files = array_keys($files);
+    
+        return $files;
+    }
 
     private function readFirstLine($filePath){
         $f = fopen($filePath, 'r');

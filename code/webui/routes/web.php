@@ -15,7 +15,9 @@ use App\Http\Controllers\DashboardController;
 |
 */
 
-
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Route::post('login', [LoginController::class, 'auth'])->name('login.auth');
 Route::get('login', [LoginController::class, 'index'])->name('login.index');
@@ -23,6 +25,3 @@ Route::get('signout', [LoginController::class, 'signout'])->name('login.signout'
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 Route::get('log-detail/{id}/{pagenumber}', [DashboardController::class, 'detail'])->name('log.detail');
 
-Route::get('/', function () {
-    return view('welcome');
-});

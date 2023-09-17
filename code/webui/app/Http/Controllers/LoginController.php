@@ -30,7 +30,14 @@ class LoginController extends Controller
             return view('login',['error'=>$validator->errors()->first()]);          
         }        
 
-        if($request->input('username') == 'ali' && $request->input('password') == 'test'){
+        $LOGIN_USERNAME = env('LOGIN_USERNAME', '');
+        $LOGIN_PASSWORD = env('LOGIN_PASSWORD', '');
+
+        if($LOGIN_USERNAME == '' || $LOGIN_PASSWORD == ''){
+            return view('login',['error'=>'Username or password has not been set in ENV!']);
+        }
+
+        if($request->input('username') == $LOGIN_USERNAME && $request->input('password') == $LOGIN_PASSWORD){
 
             $request->session()->put('authenticated', time());
             return redirect()->route('dashboard.index');
