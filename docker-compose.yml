@@ -15,4 +15,3 @@ services:
       - LOGIN_PASSWORD=admin
     volumes:
       - /c/Ali/Temp/cronlog/:/var/log/cronlog/
-      - ./code/webui/app:/var/www/html/webui/app

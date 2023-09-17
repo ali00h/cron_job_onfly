@@ -5,7 +5,10 @@ that you can schedule one or more cronjob without mounting any volumes and only 
 ## Environment Variables
 ```
 TZ=UTC
+LOG_MAX_LINE_COUNT=1000
 CRON_LIST=0 1 * * * wget "https://example-files.online-convert.com/document/txt/example.txt"
+LOGIN_USERNAME=admin
+LOGIN_PASSWORD=admin
 ```
 | ENV | Description |
 | --- | --- |
