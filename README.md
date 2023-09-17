@@ -31,10 +31,12 @@ that's mean everyday At 01:30, the first url will be called. and At 13:00 on day
 
 _Note: After changing ENV you should restart your docker container._
 
-If you want to see last job logs, login to container console and use this:
+### Log Report
+You can see cronjob logs in web interface by open this url:
 ```
-tail -f /var/log/cron.log
+https://yourdomain.com/login
 ```
+The username and password would be set in ENV.
 
 ## Docker
 Just run:
