@@ -36,7 +36,7 @@ You can see cronjob logs report in web interface by open this url:
 ```
 https://yourdomain.com/login
 ```
-The username and password would be set in ENV.
+The username and password would be set in ENV. You can change it whenever you want.
 
 In dashbord you can see the list of cronjobs and by clicking each one, you can see datetime of job events and response of them.
 
